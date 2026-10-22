@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111b20"><meta name="description" content="描いた粒が、音楽になる。砂、水、火、植物が奏でる、ひとつの小さな音の実験室。">
+<title>鳴る砂場 — 小さな音の実験室</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111b20'/%3E%3Cpath d='M10 47 28 24 40 38 48 30 58 47' fill='none' stroke='%23edc581' stroke-width='5'/%3E%3Ccircle cx='43' cy='16' r='4' fill='%239ad9ca'/%3E%3C/svg%3E">
+<style>
+:root{color-scheme:dark;--bg:#111b20;--panel:#18252b;--line:#314047;--ink:#ecede5;--muted:#9bafb4;--mint:#a0dccb;--sand:#edc581;--accent:var(--sand);font-family:'Yu Gothic UI','Hiragino Kaku Gothic ProN',Meiryo,sans-serif;font-synthesis:none}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button,select{cursor:pointer}button{min-height:44px;background:none;border:1px solid transparent;color:inherit;border-radius:9px;padding:0 14px;display:inline-flex;align-items:center;justify-content:center;gap:8px}button:hover{background:#ffffff09}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--mint);outline-offset:3px}button:disabled{opacity:.4;cursor:wait}svg.icon{height:19px;width:19px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.symbols{display:none}.shell{max-width:1600px;margin:auto;padding:0 40px}header{height:87px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:13px}.brandmark{color:var(--sand);width:40px;height:40px}.brand h1{font-family:'Yu Mincho','Hiragino Mincho ProN',serif;font-size:26px;letter-spacing:.12em;margin:0;font-weight:600}.brand small{font-size:9px;letter-spacing:.24em;color:var(--muted);display:block;margin-top:4px}.header-actions{display:flex;align-items:center;gap:10px}.quiet{color:var(--muted)}.share{background:var(--mint);color:#132a28;font-weight:700;border-radius:7px}.share:hover{background:#b4ebdc}.topline{height:68px;display:flex;align-items:center;justify-content:space-between;gap:15px}.tagline{font-size:14px;letter-spacing:.06em;color:#c4cfce}.tagline span{color:var(--muted);font-size:11px;margin-left:16px}.live{display:flex;gap:8px;align-items:center;font-size:10px;letter-spacing:.12em;color:var(--muted)}.live i{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px #a0dccb40}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 238px;gap:26px}.playfield{position:relative;height:clamp(360px,calc(100svh - 354px),650px);min-width:0;background:#0c151a;border:1px solid #33434a;border-radius:13px;overflow:hidden}.canvas-scroll{height:100%;width:100%;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--line) transparent}#sand-canvas{display:block;touch-action:none;cursor:crosshair;outline-offset:-4px}.scene-label{pointer-events:none;position:absolute;top:19px;left:20px;display:flex;align-items:center;gap:9px;color:#a9babd;font-size:10px;letter-spacing:.15em}.scene-label::before{content:'';width:5px;height:5px;border:1px solid var(--sand);transform:rotate(45deg)}.scene-meter{position:absolute;top:14px;right:18px;display:flex;align-items:center;gap:5px;pointer-events:none}.beat-dot{height:4px;width:20px;background:#26393f;border-radius:4px;transition:background .08s}.beat-dot.on{background:var(--mint);box-shadow:0 0 10px #a0dccb50}.sound-invite{position:absolute;left:50%;top:23%;transform:translate(-50%,-50%);background:#17262ce8;border:1px solid #485b61;border-radius:22px;padding:0 16px;white-space:nowrap;font-size:12px;box-shadow:0 8px 32px #0002}.sound-invite[hidden]{display:none}.scene-bottom{position:absolute;bottom:14px;left:18px;right:18px;display:flex;justify-content:space-between;pointer-events:none;font:10px ui-monospace,monospace;letter-spacing:.09em;color:#6f878f}.pause-label{display:none;position:absolute;inset:0;align-items:center;justify-content:center;pointer-events:none;letter-spacing:.3em;color:#d7e1dd;background:#0c151a33}.paused .pause-label{display:flex}.rail{display:flex;flex-direction:column;gap:23px;padding:6px 0}.eyebrow{font-size:10px;letter-spacing:.19em;color:var(--muted);margin:0 0 13px}.day-line{display:flex;justify-content:space-between;align-items:center}.day-line span{font:10px ui-monospace,monospace;color:#81999e}.challenge h2{font-size:17px;line-height:1.8;font-weight:500;letter-spacing:.04em;margin:5px 0 10px}.challenge p{color:var(--muted);font-size:11px;line-height:1.8;margin:0 0 13px}.progress-track{height:3px;background:#304047;border-radius:5px;overflow:hidden}.progress-fill{height:100%;width:0;background:var(--mint);transition:width .3s}.progress-caption{display:flex;justify-content:space-between;font:10px ui-monospace,monospace;color:var(--muted);margin-top:9px}.text-button{padding:0;justify-content:flex-start;font-size:11px;color:var(--mint)}.rail-rule{border:0;border-top:1px solid var(--line);margin:0}.material-preview{display:flex;gap:13px;align-items:center;margin-bottom:12px}.material-orb{display:grid;place-items:center;width:48px;height:48px;background:#edc58110;border-radius:12px;color:var(--sand)}.material-preview h2{font-size:19px;letter-spacing:.12em;margin:0 0 4px}.material-preview span{color:var(--muted);font-size:10px;letter-spacing:.12em}.material-description{font-size:12px;color:var(--muted);line-height:1.9;min-height:46px;margin:0}.note-tags{font:10px ui-monospace,monospace;color:var(--mint);letter-spacing:.15em;margin-top:13px}.journal-launch{width:100%;border:1px solid var(--line);border-radius:10px;justify-content:space-between;text-align:left;min-height:63px;margin-top:auto;padding:12px}.journal-launch span{display:block;font-size:12px}.journal-launch small{display:block;color:var(--muted);font-size:10px;margin-top:5px}.journal-launch strong{font:17px ui-monospace,monospace;color:var(--sand)}.dock{padding:19px 0 0}.dock-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:10px;color:var(--muted);letter-spacing:.14em}.dock-heading span:last-child{letter-spacing:.02em;font-size:10px}.palette{display:grid;grid-template-columns:repeat(14,minmax(44px,1fr));gap:6px}.material{flex-direction:column;min-height:64px;padding:7px 0 6px;gap:7px;color:#a9b9ba;border:1px solid #2b3b41;background:#162329;border-radius:9px;transition:border-color .15s,background .15s}.material .grain-icon{width:20px;height:20px;color:var(--color)}.material .name{font-size:11px;white-space:nowrap}.material[aria-pressed=true]{border-color:var(--color);background:color-mix(in srgb,var(--color) 12%,#142128);color:var(--ink)}.controlbar{display:flex;gap:16px;align-items:center;padding:15px 0 12px}.tools{display:flex;align-items:center;gap:3px}.tools button{padding:0 10px;color:var(--muted)}.tools button.active{color:var(--sand);background:#edc58112}.control-divider{width:1px;height:24px;background:var(--line)}.brush{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:11px}.brush output{color:var(--ink);font:11px ui-monospace,monospace;width:20px}.brush input{width:90px}input[type=range]{accent-color:var(--mint);height:44px;cursor:pointer;margin:0;min-width:0}.music-controls{margin-left:auto;display:flex;align-items:center;gap:16px}.bpm-label,.scale-label,.volume-label{display:flex;align-items:center;gap:9px;font-size:10px;color:var(--muted);letter-spacing:.06em}.bpm-label input{width:58px;border:1px solid var(--line);border-radius:7px;background:#17262c;color:var(--ink);height:44px;text-align:center;font:14px ui-monospace,monospace;padding:0 3px}.scale-label select{height:44px;border:1px solid var(--line);border-radius:7px;background:#17262c;color:var(--ink);padding:0 26px 0 10px;font-size:11px}.volume-label input{width:70px}.record{border:1px solid var(--line);font-size:11px;color:#c0cdcd}.record i{width:7px;height:7px;border:1px solid #db9b91;border-radius:50%}.record.recording{color:#ffb7ac;border-color:#d98579}.record.recording i{background:#ffb7ac}.mobile-only{display:none}footer{height:31px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #26363d;color:#718b92;font-size:9px;letter-spacing:.07em}.footer-mark{display:flex;align-items:center;gap:7px}.footer-mark b{color:#a1b7b8;font-size:10px;font-weight:400}.status{font:9px ui-monospace,monospace}.toast{position:fixed;bottom:30px;left:50%;transform:translate(-50%,20px);background:#d8e8df;color:#19312b;box-shadow:0 8px 30px #0004;border-radius:9px;padding:13px 20px;z-index:20;font-size:12px;opacity:0;pointer-events:none;transition:.2s;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}dialog{padding:27px;background:#17262c;color:var(--ink);border:1px solid #455960;border-radius:18px;box-shadow:0 25px 100px #0008;max-width:min(630px,calc(100vw - 28px));width:100%;max-height:85svh}dialog::backdrop{background:#061015b8;backdrop-filter:blur(7px)}.dialog-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.dialog-head h2{margin:0;font-size:20px;letter-spacing:.1em}.dialog-head button{width:44px;padding:0;color:var(--muted)}dialog p{font-size:12px;line-height:1.9;color:#b4c4c5}.journal-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.discovery{padding:14px;border:1px solid #2e4149;border-radius:9px;min-height:90px}.discovery h3{font-size:12px;margin:0 0 7px}.discovery p{font-size:10px;margin:0}.discovery small{font-size:9px;color:var(--mint)}.discovery.locked{opacity:.55}.discovery.locked h3{color:#92a4a7}.share-input{width:100%;height:64px;border:1px solid var(--line);border-radius:8px;background:#0e1c22;color:var(--mint);padding:10px;font:11px ui-monospace,monospace;resize:none;word-break:break-all}.dialog-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}.primary{background:var(--mint);color:#18322c}.secondary{border-color:var(--line)}#record-preview{width:100%;max-height:55vh;background:#0c151a;border-radius:8px}.download{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:8px;background:var(--mint);color:#17332b;text-decoration:none;font-size:13px}.settings-slot{display:flex;flex-direction:column;gap:15px}.settings-slot .music-controls{display:flex;margin:0;flex-direction:column;align-items:stretch}.settings-slot label{justify-content:space-between}.settings-slot .volume-label input{width:65%}.settings-slot .record{margin-top:5px}.grain-icon{display:block;fill:currentColor}.mobile-challenge{font-size:10px;color:var(--muted);display:none}.pan-hint{display:none;position:absolute;bottom:32px;left:20px;font-size:10px;color:var(--mint);pointer-events:none}
+[hidden]{display:none!important}
+button{min-width:44px}.playfield{height:clamp(360px,calc(100svh - 364px),650px)}
+@media(min-width:1500px){.shell{padding:0 56px}.workspace{grid-template-columns:minmax(0,1fr) 260px;gap:32px}}
+@media(max-width:1100px){.shell{padding:0 24px}.workspace{grid-template-columns:minmax(0,1fr) 200px;gap:20px}.controlbar{gap:8px}.music-controls{gap:8px}.scale-label>span,.volume-label>span{display:none}.volume-label input{width:50px}.brush input{width:65px}.tools button{padding:0 8px}.palette{gap:4px}.record{padding:0 10px}}
+@media(max-width:760px){.shell{padding:0 13px}header{height:66px}.brand{gap:8px}.brandmark{width:32px;height:32px}.brand h1{font-size:21px}.brand small{font-size:7px;letter-spacing:.2em;margin-top:2px}.header-actions{gap:0}.header-actions button{padding:0 11px}.header-actions .share span,.header-actions .quiet span{display:none}.header-actions .share{min-width:44px;background:none;color:var(--mint)}.topline{height:49px;gap:5px}.tagline{font-size:11px;letter-spacing:.04em}.tagline span{display:none}.live{font-size:9px;gap:6px}.workspace{display:block}.rail{display:none}.playfield{height:max(330px,calc(100svh - 383px));border-radius:10px}.scene-label{top:15px;left:13px;font-size:8px}.scene-meter{top:17px;right:12px;gap:4px}.beat-dot{width:12px;height:3px}.scene-bottom{left:12px;right:12px;font-size:8px}.dock{padding-top:12px}.dock-heading{margin-bottom:8px;font-size:9px}.dock-heading span:last-child{font-size:9px}.palette{grid-template-columns:repeat(7,minmax(44px,1fr));gap:5px}.material{min-height:52px;gap:3px;border-radius:7px;padding:4px 0}.material .grain-icon{height:18px;width:18px}.material .name{font-size:10px}.controlbar{padding:7px 0;display:grid;grid-template-columns:1fr auto;gap:0 6px}.tools{gap:0}.tools button{padding:0;min-width:44px}.control-divider{display:none}.brush{gap:8px;justify-content:flex-end}.brush input{width:58px}.brush label{font-size:9px}.brush output{font-size:10px;width:16px}.music-controls{display:none}.mobile-only{display:inline-flex}.mobile-strip{display:flex;align-items:center;justify-content:space-between;height:44px;border-top:1px solid #26363d}.mobile-strip button{font-size:10px;padding:0 9px;color:var(--muted)}.mobile-strip .mobile-challenge{display:inline-flex;max-width:170px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.sound-invite{font-size:11px;top:28%;padding:0 13px}footer{height:27px;font-size:8px}.footer-mark{gap:4px}.footer-mark b{font-size:9px}.status{font-size:8px}.journal-grid{grid-template-columns:1fr}dialog{padding:20px}.toast{bottom:23px;font-size:11px}.settings-slot .music-controls{gap:14px}.settings-slot .music-controls span{display:inline}.settings-slot .volume-label input{width:60%}body{padding-bottom:env(safe-area-inset-bottom)}}
+@media(max-width:760px){.playfield{height:max(330px,calc(100svh - 385px))}.controlbar:has(#pan:not([hidden])){grid-template-columns:1fr}.controlbar:has(#pan:not([hidden])) .brush{justify-content:flex-start}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<svg class="symbols" xmlns="http://www.w3.org/2000/svg"><defs>
+<symbol id="i-sound" viewBox="0 0 24 24"><path d="m11 5-6 4H2v6h3l6 4zM15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></symbol><symbol id="i-share" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M5 13v7h14v-7"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6C8 3 5 3 2 4v15c4-1 7 0 10 2 3-2 6-3 10-2V4c-3-1-6-1-10 2v15"/></symbol><symbol id="i-erase" viewBox="0 0 24 24"><path d="m4 16 10-12 7 6-9 11H9zM9 10l7 6M12 21h10"/></symbol><symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="m8 4 12 8-12 8z"/></symbol><symbol id="i-clear" viewBox="0 0 24 24"><path d="M3 6h18M9 3h6M6 6l1 15h10l1-15M10 10v7m4-7v7"/></symbol><symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h3m4 0h9M12 3v8M7 13v8"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol><symbol id="i-heat" viewBox="0 0 24 24"><path d="M12 2C15 8 6 9 9 14c-1-3 3-4 4-6 1 4 6 5 6 10a7 7 0 0 1-14 0c0-6 7-7 7-16z"/></symbol><symbol id="i-cold" viewBox="0 0 24 24"><path d="M12 2v20M3 7l18 10M3 17 21 7M9 4l3 3 3-3M9 20l3-3 3 3M3 10l4-1-1-4M18 19l-1-4 4-1"/></symbol><symbol id="i-pan" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M8 6l4-4 4 4M8 18l4 4 4-4M6 8l-4 4 4 4m12-8 4 4-4 4"/></symbol></defs></svg>
+<div class="shell">
+<header><div class="brand"><svg class="brandmark" viewBox="0 0 40 40" fill="none"><path d="m3 29 13-17 9 11 7-8 7 14M5 35h31" stroke="currentColor" stroke-width="1.5"/><rect x="27" y="4" width="4" height="4" fill="#a0dccb"/><rect x="8" y="6" width="2" height="2" fill="currentColor"/></svg><div><h1>鳴る砂場</h1><small>A LITTLE SOUND LAB</small></div></div><div class="header-actions"><button id="journal-top" class="quiet" aria-label="反応図鑑を開く"><svg class="icon"><use href="#i-book"/></svg><span>反応図鑑</span></button><button id="mute" class="quiet" aria-label="音を有効にする" aria-pressed="false"><svg class="icon"><use href="#i-sound"/></svg></button><button id="share" class="share" aria-label="この砂場を共有"><svg class="icon"><use href="#i-share"/></svg><span>この砂場を共有</span></button></div></header>
+<div class="topline"><div class="tagline">描いた粒が、音楽になる。<span>偶然を、ひとつのメロディに。</span></div><div class="live"><i></i><span id="live-status">READY TO PLAY</span></div></div>
+<main><div class="workspace"><section class="playfield" aria-label="砂場"><div class="canvas-scroll" id="canvas-scroll"><canvas id="sand-canvas" tabindex="0" aria-label="ドラッグで粒を描く砂場。矢印キーで位置を移動し、Enterで粒を置けます。"></canvas></div><div class="scene-label">YOUR LITTLE UNIVERSE</div><div class="scene-meter" aria-label="4拍のビート"><i class="beat-dot"></i><i class="beat-dot"></i><i class="beat-dot"></i><i class="beat-dot"></i></div><button class="sound-invite" id="sound-start"><svg class="icon"><use href="#i-sound"/></svg>触れて、音をはじめる</button><div class="scene-bottom"><span id="cell-count">0 PARTICLES</span><span id="scene-scale">C MAJOR PENTATONIC</span></div><span class="pan-hint" id="pan-hint">共有された大きな砂場 · 移動ツールでスクロール</span><div class="pause-label">PAUSED</div></section><aside class="rail"><section class="challenge"><div class="day-line"><p class="eyebrow">TODAY'S EXPLORATION</p><span id="today-date"></span></div><h2 id="daily-title"></h2><p id="daily-hint"></p><div class="progress-track"><div class="progress-fill" id="daily-fill"></div></div><div class="progress-caption"><span id="daily-progress">0 / 3</span><span id="daily-state">未達成</span></div><button id="daily-open" class="text-button">お題をくわしく見る ↗</button></section><hr class="rail-rule"><section><p class="eyebrow">IN YOUR HAND</p><div class="material-preview"><div class="material-orb" id="material-orb"></div><div><h2 id="material-name">砂</h2><span id="material-sound">SOFT KEYS</span></div></div><p class="material-description" id="material-description"></p><div class="note-tags" id="note-tags">C · D · E · G · A</div></section><button id="journal" class="journal-launch"><div><span>小さな発見の記録</span><small>反応図鑑をひらく ↗</small></div><strong id="discovery-count">0 / 26</strong></button></aside></div>
+<section class="dock" aria-label="粒と音の操作"><div class="dock-heading"><span>ELEMENTS <span style="color:#556c74">/</span> 粒をえらぶ</span><span id="selected-hint">砂 · やわらかい打鍵</span></div><div class="palette" id="palette"></div><div class="controlbar"><div class="tools"><button id="erase" aria-label="消しゴム" title="消しゴム (E)" aria-pressed="false"><svg class="icon"><use href="#i-erase"/></svg></button><button id="heat" aria-label="加熱ブラシ" title="加熱"><svg class="icon"><use href="#i-heat"/></svg></button><button id="cold" aria-label="冷却ブラシ" title="冷却"><svg class="icon"><use href="#i-cold"/></svg></button><button id="pause" aria-label="一時停止" title="一時停止 (Space)" aria-pressed="false"><svg class="icon"><use href="#i-pause"/></svg></button><button id="clear" aria-label="全消去" title="全消去"><svg class="icon"><use href="#i-clear"/></svg></button><button id="pan" aria-label="砂場を移動" title="大きな砂場を移動" hidden><svg class="icon"><use href="#i-pan"/></svg></button></div><div class="control-divider"></div><div class="brush"><label for="brush-size">ブラシ</label><input id="brush-size" type="range" min="1" max="9" value="3" aria-label="ブラシの太さ"><output id="brush-value">3</output></div><div class="music-controls" id="music-controls"><label class="bpm-label" for="bpm">BPM<input id="bpm" type="number" min="40" max="180" value="96" inputmode="numeric"></label><label class="scale-label" for="scale"><span>スケール</span><select id="scale"><option value="major">長調ペンタトニック</option><option value="minor">短調ペンタトニック</option><option value="dorian">ドリア</option><option value="japanese">和音階</option></select></label><label class="volume-label" for="volume"><span>音量</span><svg class="icon"><use href="#i-sound"/></svg><input id="volume" aria-label="音量" type="range" min="0" max="100" value="55"></label><button id="record" class="record"><i></i><span>15秒録画</span></button></div></div><div class="mobile-strip mobile-only"><button id="mobile-daily" class="mobile-challenge"></button><button id="mobile-journal">図鑑 <span id="mobile-discovery">0/26</span></button><button id="settings" aria-label="音楽と録画の設定"><svg class="icon"><use href="#i-sliders"/></svg><span id="mobile-bpm">96 BPM</span></button></div></section></main><footer><div class="footer-mark"><b>◈</b> うまく描かなくていい。耳をすませて。</div><span class="status" id="performance">— FPS · QUANTIZED</span></footer>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="journal-dialog"><div class="dialog-head"><h2>小さな発見の記録</h2><button data-close aria-label="閉じる"><svg class="icon"><use href="#i-close"/></svg></button></div><p id="journal-summary"></p><div id="journal-grid" class="journal-grid"></div></dialog>
+<dialog id="settings-dialog"><div class="dialog-head"><h2>音をととのえる</h2><button data-close aria-label="閉じる"><svg class="icon"><use href="#i-close"/></svg></button></div><div id="settings-slot" class="settings-slot"></div><p>音は8分音符の拍にそろいます。上下の位置で高さが変わり、鈴の石は触れた粒の数で音程が変わります。</p></dialog>
+<dialog id="share-dialog"><div class="dialog-head"><h2>この砂場を共有</h2><button data-close aria-label="閉じる"><svg class="icon"><use href="#i-close"/></svg></button></div><p id="share-description">いまの粒の配置と温度、BPM、スケールを閉じ込めました。同じ状態から、続きを奏でられます。</p><textarea id="share-url" class="share-input" readonly aria-label="共有URL"></textarea><div class="dialog-actions"><button id="copy-share" class="primary">リンクをコピー</button></div></dialog>
+<dialog id="daily-dialog"><div class="dialog-head"><h2>今日の小さな実験</h2><button data-close aria-label="閉じる"><svg class="icon"><use href="#i-close"/></svg></button></div><h3 id="daily-dialog-title"></h3><p id="daily-dialog-hint"></p><p id="daily-dialog-progress"></p><div class="dialog-actions"><button id="daily-restart" class="primary">空の砂場で挑戦する</button></div></dialog>
+<dialog id="clear-dialog"><div class="dialog-head"><h2>砂場を空にする？</h2><button data-close aria-label="閉じる"><svg class="icon"><use href="#i-close"/></svg></button></div><p>粒をすべて消します。発見の記録と今日の達成状況は残ります。</p><div class="dialog-actions"><button data-close class="secondary">戻る</button><button id="clear-confirm" class="primary">全消去する</button></div></dialog>
+<dialog id="video-dialog"><div class="dialog-head"><h2>15秒の、小さな音楽</h2><button data-close aria-label="閉じる"><svg class="icon"><use href="#i-close"/></svg></button></div><video id="record-preview" controls playsinline></video><div class="dialog-actions"><a id="video-download" class="download" download="naru-sunaba.webm">動画を保存</a></div></dialog>
+<script>
+(function (root) {
+  'use strict';
+  const MATERIALS = [
+    {id:1,name:'砂',color:'#e7be7c',hint:'さらさら落ちる、やわらかな打鍵'},
+    {id:2,name:'水',color:'#66b8e7',hint:'低いところへ流れる、丸い木琴'},
+    {id:3,name:'油',color:'#8f9853',hint:'水に浮かび、火が連鎖する'},
+    {id:4,name:'火',color:'#f78359',hint:'熱で世界を変える、ノイズの和音'},
+    {id:5,name:'煙',color:'#a995b8',hint:'上へほどける、息のような響き'},
+    {id:6,name:'氷',color:'#a2e7f1',hint:'まわりの水を冷やす、高いチャイム'},
+    {id:7,name:'雪',color:'#e7f2f0',hint:'ゆっくり積もる、淡いきらめき'},
+    {id:8,name:'石',color:'#89969e',hint:'動かない足場、低い打楽器'},
+    {id:9,name:'金属',color:'#b9c9d4',hint:'熱を伝える足場、澄んだベル'},
+    {id:10,name:'種',color:'#bd7963',hint:'水に出会うと、音を伸ばす植物に'},
+    {id:11,name:'鈴の石',color:'#f1dd97',hint:'新しく触れた粒の数で音程が変わる'},
+    {id:12,name:'ガラス',color:'#b3d9c8',hint:'熱い砂から生まれる、透明な響き'},
+    {id:13,name:'植物',color:'#91bc80',hint:'水を吸い、節ごとのアルペジオ'},
+    {id:14,name:'溶岩',color:'#db6047',hint:'火を使わず砂をガラスに変える'}
+  ];
+  const rules = [
+    ['water_fire','消える火','水 ＋ 火 → 煙','火を水で包むと、短い下降音とともに煙へ。'],
+    ['oil_fire','火の道','油 ＋ 火 → 燃え広がる火','油の粒を伝って燃焼が連鎖する。'],
+    ['plant_fire','燃える葉','植物 ＋ 火 → 火','植物は燃料になり、火を広げる。'],
+    ['seed_fire','種の煙','種 ＋ 火 → 煙','乾いた種は熱に包まれ、煙になる。'],
+    ['snow_fire','雪どけ','雪 ＋ 火 → 水','火の近くで雪が水に戻る。'],
+    ['ice_fire','とける氷','氷 ＋ 火 → 水','氷が熱を吸ってとける。'],
+    ['sand_fire','砂の窯','砂 ＋ 火 → ガラス','熱を受けた砂が透明な固体へ変わる。'],
+    ['metal_fire','熱い金属','金属 ＋ 火 → 高温の金属','金属が熱を蓄え、次の反応のきっかけになる。'],
+    ['stone_fire','焼けた石','石 ＋ 火 → 高温の石','石に蓄えた熱でも水を蒸発させられる。'],
+    ['oil_lava','溶岩の導火線','油 ＋ 溶岩 → 火','高温の溶岩が油に火をつける。'],
+    ['water_lava','新しい岩','水 ＋ 溶岩 → 石 ＋ 煙','水に冷やされた溶岩が固まる。'],
+    ['ice_lava','氷と地熱','氷 ＋ 溶岩 → 水 ＋ 石','氷がとけ、溶岩は石になる。'],
+    ['snow_lava','白い蒸気','雪 ＋ 溶岩 → 煙 ＋ 石','雪が一気に蒸発し、溶岩を冷やす。'],
+    ['sand_lava','火のないガラス','砂 ＋ 溶岩 → ガラス ＋ 石','溶岩の熱で砂をガラスにする。'],
+    ['metal_lava','地熱のベル','金属 ＋ 溶岩 → 高温の金属','溶岩から金属へ熱が伝わる。'],
+    ['plant_lava','地熱の炎','植物 ＋ 溶岩 → 火','溶岩に触れた葉が燃え始める。'],
+    ['seed_lava','焦げた種','種 ＋ 溶岩 → 煙','溶岩に触れた種が煙になる。'],
+    ['glass_lava','とろけるガラス','ガラス ＋ 溶岩 → 溶岩','ガラスをさらに熱すると再び流れ始める。'],
+    ['water_ice','凍る水面','水 ＋ 氷 → 氷','十分に冷たい氷が周りの水を凍らせる。'],
+    ['seed_water','最初の芽','種 ＋ 水 → 植物','水を吸った種が芽を出す。'],
+    ['plant_water','伸びる旋律','植物 ＋ 水 → 新しい節','吸い上げた水で枝が伸び、節ごとに音が鳴る。'],
+    ['water_hot_metal','金属の蒸気','水 ＋ 高温の金属 → 煙','金属に蓄えた熱で水が蒸発する。'],
+    ['water_hot_stone','石の蒸気','水 ＋ 高温の石 → 煙','焼けた石の上で水が蒸発する。'],
+    ['water_hot_glass','ガラスのひび','水 ＋ 高温のガラス → 砂 ＋ 煙','熱いガラスを急冷すると、細かな砂に戻る。'],
+    ['smoke_ice','冷たい雫','煙 ＋ 氷 → 水','冷たい面で煙の水分が水に戻る。'],
+    ['smoke_snow','雪の雫','煙 ＋ 雪 → 水','雪に冷やされた煙が水に戻る。'],
+    ['plant_ice','冬の眠り','植物 ＋ 氷 → 種','冷たい氷に触れた植物は種を残す。'],
+    ['cold_water','凍結','水 ＋ 低温 → 氷','冷却ブラシや冷たい粒で水を凍らせる。'],
+    ['hot_sand','熱から透明へ','砂 ＋ 高温 → ガラス','熱した金属や加熱ブラシでも砂を焼ける。'],
+    ['lava_cool','冷える大地','溶岩 ＋ 冷却 → 石','熱を失った溶岩は動かない足場になる。'],
+    ['snow_pack','積もる氷','雪 ＋ 雪の重さ → 氷','積み重なった雪は時間をかけて氷になる。'],
+    ['hot_water','湯気','水 ＋ 高温 → 煙','水が沸騰して上へ昇る。']
+  ];
+  const REACTIONS = rules.map(([id,title,formula,description])=>({id,title,formula,description}));
+  const DEFAULT_TEMP = [20,20,20,20,900,85,-48,-30,20,20,20,20,20,20,1100];
+  const STATIC = new Set([6,8,9,11,12,13]);
+  const DENSITY = [0,6,3,2,0,0,7,2,10,10,4,10,9,10,5];
+  function pack(a) { const out=[]; for(let i=0;i<a.length;){let j=i+1;while(j<a.length && a[j]===a[i] && j-i<65535)j++;out.push(a[i],j-i);i=j;}return out; }
+  function integerBetween(value,min,max) {return Number.isInteger(value)&&value>=min&&value<=max;}
+  function unpack(a, target,min,max) {if(!Array.isArray(a)||a.length%2||a.length>target.length*2)throw new Error('砂場データの形式が違います');let p=0;for(let i=0;i<a.length;i+=2){const v=a[i],n=a[i+1];if(!integerBetween(v,min,max)||!Number.isInteger(n)||n<1||p+n>target.length)throw new Error('砂場データが壊れています');target.fill(v,p,p+n);p+=n;}if(p!==target.length)throw new Error('砂場データが足りません');}
+  class SandSim {
+    constructor(w,h,onEvent) { this.onEvent=typeof onEvent==='function'?onEvent:()=>{}; this._allocate(w,h); this.clear(); }
+    _allocate(w,h) { if(!Number.isInteger(w)||!Number.isInteger(h)||w<16||h<16||w>320||h>240)throw new Error('砂場の大きさが不正です'); this.w=w;this.h=h;this.size=w*h;this.cols=Math.ceil(w/16);this.rows=Math.ceil(h/16);this.grid=new Uint8Array(this.size);this.heat=new Int16Array(this.size);this.age=new Uint16Array(this.size);this.nutrient=new Uint8Array(this.size);this.motion=new Uint8Array(this.size);this.serial=new Uint32Array(this.size);this.updated=new Uint32Array(this.size);this.active=new Set();this.nextActive=new Set();this.bellContacts=new Map();this.impactEvents=new Map();this.counts=new Uint32Array(15);this._stats={particles:0,activeChunks:0,updatedCells:0,tick:0}; }
+    get stats() {return this._stats;}
+    random() {let x=this.rng|0;x^=x<<13;x^=x>>>17;x^=x<<5;this.rng=x>>>0;return this.rng/4294967296;}
+    _wake(x,y) {const cx=x>>4,cy=y>>4;for(let yy=Math.max(0,cy-1);yy<=Math.min(this.rows-1,cy+1);yy++)for(let xx=Math.max(0,cx-1);xx<=Math.min(this.cols-1,cx+1);xx++){this.active.add(yy*this.cols+xx);this.nextActive.add(yy*this.cols+xx);}}
+    _keep(i) {this.nextActive.add((Math.floor(i/this.w)>>4)*this.cols+((i%this.w)>>4));}
+    _put(i,id,temp,n=0) {const old=this.grid[i];if(old===11)this.bellContacts.delete(i);if(old)this.counts[old]--;if(id)this.counts[id]++;this.grid[i]=id;this.heat[i]=temp==null?DEFAULT_TEMP[id]:temp;this.age[i]=0;this.nutrient[i]=n;this.motion[i]=0;this.serial[i]=id?++this.nextSerial:0;this.updated[i]=this.tick;this._wake(i%this.w,Math.floor(i/this.w));}
+    set(x,y,id) {x=Math.floor(x);y=Math.floor(y);if(x<0||y<0||x>=this.w||y>=this.h||!Number.isInteger(id)||id<0||id>14)return false;this._put(y*this.w+x,id);return true;}
+    brush(x,y,radius,id) {let written=0;radius=Math.max(.5,Math.min(22,radius));for(let yy=Math.max(0,Math.floor(y-radius));yy<=Math.min(this.h-1,Math.ceil(y+radius));yy++)for(let xx=Math.max(0,Math.floor(x-radius));xx<=Math.min(this.w-1,Math.ceil(x+radius));xx++){if((xx-x)**2+(yy-y)**2>radius*radius)continue;const i=yy*this.w+xx;if(id===0||this.grid[i]===0){this.set(xx,yy,id);written++;}}return written;}
+    changeTemperature(x,y,radius,delta) {radius=Math.max(1,Math.min(22,radius));for(let yy=Math.max(0,Math.floor(y-radius));yy<=Math.min(this.h-1,Math.ceil(y+radius));yy++)for(let xx=Math.max(0,Math.floor(x-radius));xx<=Math.min(this.w-1,Math.ceil(x+radius));xx++){const i=yy*this.w+xx;if((xx-x)**2+(yy-y)**2<=radius*radius&&this.grid[i]){this.heat[i]=Math.max(-100,Math.min(1400,this.heat[i]+delta));this._wake(xx,yy);}}}
+    clear() {this.grid.fill(0);this.heat.fill(20);this.age.fill(0);this.nutrient.fill(0);this.motion.fill(0);this.serial.fill(0);this.updated.fill(0);this.counts.fill(0);this.tick=0;this.rng=0x5217a39d;this.nextSerial=0;this.active.clear();this.nextActive.clear();this.bellContacts.clear();this.impactEvents.clear();this._stats={particles:0,activeChunks:0,updatedCells:0,tick:0};}
+    _event(kind,i,extra={}) {
+      const material=extra.material||this.grid[i]||1,x=i%this.w,y=Math.floor(i/this.w);
+      if(kind==='impact'){
+        // Thousands of particles may land together. Keep one representative per
+        // material and horizontal voice zone before invoking UI/audio callbacks.
+        const key=material*16+Math.floor(x*12/this.w),previous=this.impactEvents.get(key);
+        if(previous){previous.count=Math.min(64,previous.count+1);return;}
+        this.impactEvents.set(key,{kind,material,x,y,count:1,...extra});return;
+      }
+      this.onEvent({kind,material,x,y,...extra});
+    }
+    _reaction(id,i,material) {this._event(id==='plant_water'?'grow':'reaction',i,{reaction:id,material:material||this.grid[i],strength:1});}
+    _neighbors(i) {const x=i%this.w,y=Math.floor(i/this.w),a=[];if(y+1<this.h)a.push(i+this.w);if(x>0)a.push(i-1);if(x+1<this.w)a.push(i+1);if(y>0)a.push(i-this.w);return a;}
+    _pair(i,j) {
+      let a=this.grid[i],b=this.grid[j];if(!a||!b||a===b)return false;
+      const select=(p,q)=>a===p&&b===q?[i,j]:a===q&&b===p?[j,i]:null;
+      let p;
+      if((p=select(2,4))){this._put(p[0],5,90);this._put(p[1],5,80);this._reaction('water_fire',p[0],2);return true;}
+      const burn=[[3,'oil_fire',4,190],[13,'plant_fire',4,110],[10,'seed_fire',5,0],[7,'snow_fire',2,30],[6,'ice_fire',2,40],[1,'sand_fire',12,690]];
+      if(a===4||b===4)for(const [m,id,out,energy]of burn)if((p=select(m,4))){this._put(p[0],out,out===4?900:energy,out===4?energy:0);this._reaction(id,p[0],m);return true;}
+      if((p=select(9,4))&&this.heat[p[0]]<620){this.heat[p[0]]=760;this._wake(p[0]%this.w,Math.floor(p[0]/this.w));this._reaction('metal_fire',p[0],9);return true;}
+      if((p=select(8,4))&&this.heat[p[0]]<620){this.heat[p[0]]=720;this._wake(p[0]%this.w,Math.floor(p[0]/this.w));this._reaction('stone_fire',p[0],8);return true;}
+      if(a===14||b===14){
+        const lava=[[3,'oil_lava',4],[2,'water_lava',5],[6,'ice_lava',2],[7,'snow_lava',5],[1,'sand_lava',12],[13,'plant_lava',4],[10,'seed_lava',5],[12,'glass_lava',14]];
+        for(const[m,id,out]of lava)if((p=select(m,14))){this._put(p[0],out,out===12?700:DEFAULT_TEMP[out],out===4?180:0);if([2,6,7,1].includes(m))this._put(p[1],8,180);this._reaction(id,p[0],m);return true;}
+        if((p=select(9,14))&&this.heat[p[0]]<900){this.heat[p[0]]=1050;this._reaction('metal_lava',p[0],9);return true;}
+      }
+      if((p=select(2,6))&&this.heat[p[1]]<=-15){this._put(p[0],6,-12);this.heat[p[1]]+=14;this._reaction('water_ice',p[0],6);return true;}
+      if((p=select(10,2))){this._put(p[0],13,20,12);this._put(p[1],0);this._reaction('seed_water',p[0],13);return true;}
+      if((p=select(13,2))&&this.age[p[0]]>16&&this.nutrient[p[0]]<3){this.nutrient[p[0]]=8;this._put(p[1],0);this._keep(p[0]);return true;}
+      if((p=select(2,9))&&this.heat[p[1]]>=160){this._put(p[0],5,95);this.heat[p[1]]-=100;this._reaction('water_hot_metal',p[0],2);return true;}
+      if((p=select(2,8))&&this.heat[p[1]]>=160){this._put(p[0],5,95);this.heat[p[1]]-=100;this._reaction('water_hot_stone',p[0],2);return true;}
+      if((p=select(2,12))&&this.heat[p[1]]>=160){this._put(p[0],5,90);this._put(p[1],1,50);this._reaction('water_hot_glass',p[1],12);return true;}
+      if((p=select(5,6))&&this.heat[p[1]]<0){this._put(p[0],2,4);this.heat[p[1]]+=8;this._reaction('smoke_ice',p[0],2);return true;}
+      if((p=select(5,7))&&this.heat[p[1]]<0){this._put(p[0],2,4);this.heat[p[1]]+=8;this._reaction('smoke_snow',p[0],2);return true;}
+      if((p=select(13,6))&&this.heat[p[1]]<=-15){this._put(p[0],10,-4);this.heat[p[1]]+=8;this._reaction('plant_ice',p[0],10);return true;}
+      // Transfer a bounded amount of heat; stable, room-temperature neighbors cost nothing.
+      if(this.heat[i]!==this.heat[j]&&((a===9||b===9)||(Math.abs(this.heat[i]-this.heat[j])>45))){const transfer=Math.trunc((this.heat[i]-this.heat[j])*.055);if(transfer){this.heat[i]-=transfer;this.heat[j]+=transfer;this._keep(i);this._keep(j);}}
+      return false;
+    }
+    _move(i,j,mode=1) {const other=this.grid[j];for(const arr of [this.grid,this.heat,this.age,this.nutrient,this.serial]){const t=arr[i];arr[i]=arr[j];arr[j]=t;}this.motion[j]=mode;this.motion[i]=other?1:0;this.updated[i]=this.tick;this.updated[j]=this.tick;this._wake(i%this.w,Math.floor(i/this.w));this._wake(j%this.w,Math.floor(j/this.w));return true;}
+    _canMove(i,j) {const a=this.grid[i],b=this.grid[j];return b===0||((a===1||a===10||a===7||a===14)&&[2,3,4,5].includes(b)&&DENSITY[a]>DENSITY[b])||(a===2&&b===3);}
+    _fall(i) {const x=i%this.w,y=Math.floor(i/this.w),id=this.grid[i];let moved=false;const d=this.random()<.5?-1:1;if(y<this.h-1){if(this._canMove(i,i+this.w))moved=this._move(i,i+this.w);else for(const dx of[d,-d])if(x+dx>=0&&x+dx<this.w&&this._canMove(i,i+this.w+dx)){moved=this._move(i,i+this.w+dx);break;}}
+      if(!moved&&this.motion[i]===1){this._event('impact',i,{material:id,strength:.6});this.motion[i]=0;}
+      if(!moved&&[2,3,14].includes(id)){for(const dx of[d,-d])if(x+dx>=0&&x+dx<this.w&&this.grid[i+dx]===0){moved=this._move(i,i+dx,2);break;}}
+      if(!moved)this.motion[i]=0;return moved;
+    }
+    _rise(i) {const x=i%this.w,y=Math.floor(i/this.w),id=this.grid[i];if(y===0){this._put(i,0);return;}if(this.random()<(id===4?.22:.7)){const d=this.random()<.5?-1:1;for(const dx of[0,d,-d])if(x+dx>=0&&x+dx<this.w&&this.grid[i-this.w+dx]===0){this._move(i,i-this.w+dx);return;}if(x+d>=0&&x+d<this.w&&this.grid[i+d]===0)this._move(i,i+d);}}
+    _grow(i) {if(!this.nutrient[i]||this.age[i]<12)return;const x=i%this.w,y=Math.floor(i/this.w),d=this.random()<.5?-1:1;if(y===0){this.nutrient[i]=0;return;}for(const dx of[0,d,-d])if(x+dx>=0&&x+dx<this.w&&this.grid[i-this.w+dx]===0){const energy=this.nutrient[i];this.nutrient[i]=0;this._put(i-this.w+dx,13,20,energy-1);this._reaction('plant_water',i-this.w+dx,13);if(energy>5&&energy%4===0&&x-d>=0&&x-d<this.w&&this.grid[i-d]===0){this._put(i-d,13,20,Math.floor(energy/2));this._reaction('plant_water',i-d,13);}return;}this.nutrient[i]=0;}
+    _bell(i) {const contact=this._neighbors(i).filter(j=>this.grid[j]&&this.grid[j]!==11),last=this.bellContacts.get(i)||[],now=contact.map(j=>this.serial[j]);const count=now.filter(s=>!last.includes(s)).length;if(count)this._event('bell',i,{count,strength:Math.min(1,.4+count*.15)});this.bellContacts.set(i,now);}
+    _update(i) {let id=this.grid[i];if(!id||this.updated[i]===this.tick)return;this.updated[i]=this.tick;this.age[i]=Math.min(65535,this.age[i]+1);
+      if(id===11){this._bell(i);return;}
+      const near=this._neighbors(i);for(const j of near){if(this._pair(i,j)){id=this.grid[i];break;}}if(!id)return;
+      if(id===2&&this.heat[i]<=-5){this._put(i,6,-16);this._reaction('cold_water',i,6);return;}
+      if(id===2&&this.heat[i]>=110){this._put(i,5,95);this._reaction('hot_water',i,2);return;}
+      if(id===1&&this.heat[i]>=620){this._put(i,12,this.heat[i]);this._reaction('hot_sand',i,12);return;}
+      if((id===6||id===7)&&this.heat[i]>8){this._put(i,2,8);this._reaction(id===6?'ice_fire':'snow_fire',i,2);return;}
+      if(id===14&&this.heat[i]<600){this._put(i,8,this.heat[i]);this._reaction('lava_cool',i,8);return;}
+      if(id===7&&this.age[i]>240&&i>=this.w&&[6,7].includes(this.grid[i-this.w])&&i+this.w<this.size&&this.grid[i+this.w]){this._put(i,6,-18);this._reaction('snow_pack',i,6);return;}
+      if(id===13){this._grow(i);if(this.nutrient[i]>0)this._keep(i);return;}
+      if(id===4){this.heat[i]=900;const life=48+this.nutrient[i];if(this.age[i]>life){this._put(i,this.random()<.45?5:0);return;}this._rise(i);this._keep(i);return;}
+      if(id===5){if(this.age[i]>150){this._put(i,0);return;}this._rise(i);this._keep(i);return;}
+      if(this.heat[i]!==20){if(this.tick%16===0)this.heat[i]+=this.heat[i]<20?1:-1;if(Math.abs(this.heat[i]-20)>4)this._keep(i);}
+      if(STATIC.has(id))return;if(id===7&&this.tick%3!==0){this._keep(i);return;}if(id===14&&this.tick%3!==0){this._keep(i);return;}this._fall(i);if(id===7||id===14)this._keep(i);
+    }
+    step() {this.tick++;this.impactEvents.clear();this.nextActive=new Set();const chunks=Array.from(this.active).sort((a,b)=>b-a);this.active=new Set();let processed=0;for(const c of chunks){const x0=(c%this.cols)*16,y0=Math.floor(c/this.cols)*16,x1=Math.min(this.w,x0+16),y1=Math.min(this.h,y0+16);for(let y=y1-1;y>=y0;y--){if(this.tick%2){for(let x=x1-1;x>=x0;x--){const i=y*this.w+x;if(this.grid[i]){this._update(i);processed++;}}}else for(let x=x0;x<x1;x++){const i=y*this.w+x;if(this.grid[i]){this._update(i);processed++;}}}}for(const c of this.active)this.nextActive.add(c);this.active=this.nextActive;let particles=0;for(let i=1;i<this.counts.length;i++)particles+=this.counts[i];this._stats={particles,activeChunks:this.active.size,updatedCells:processed,tick:this.tick};for(const e of this.impactEvents.values())this.onEvent(e);this.impactEvents.clear();}
+    seedDemo() {this.clear();const w=this.w,h=this.h;const line=(x1,x2,y,id)=>{for(let x=Math.floor(x1);x<=Math.floor(x2);x++)this.set(x,Math.floor(y),id);};line(w*.13,w*.37,h*.42,8);line(w*.42,w*.66,h*.62,9);line(w*.67,w*.89,h*.80,8);line(w*.08,w*.42,h*.93,8);line(w*.53,w*.91,h*.93,8);for(let y=Math.floor(h*.87);y<h*.93;y++)for(let x=Math.floor(w*.12);x<w*.39;x++)this.set(x,y,2);for(let x=Math.floor(w*.21);x<w*.26;x++)this.set(x,Math.floor(h*.415),11);for(let x=Math.floor(w*.52);x<w*.57;x++)this.set(x,Math.floor(h*.61),11);for(let k=0;k<32;k++){const x=Math.floor(w*.24+(this.random()-.5)*w*.08),y=Math.floor(h*.06+this.random()*h*.25);this.set(x,y,1);}for(let x=Math.floor(w*.64);x<w*.82;x+=5){const y=Math.floor(h*.92);this.set(x,y,13);}for(let k=0;k<14;k++)this.set(Math.floor(w*.74+this.random()*w*.10),Math.floor(h*.72+this.random()*h*.06),7);}
+    snapshot() {return {v:1,w:this.w,h:this.h,tick:this.tick,rng:this.rng,serial:this.nextSerial,g:pack(this.grid),t:pack(this.heat),a:pack(this.age),n:pack(this.nutrient),m:pack(this.motion),s:pack(this.serial),bells:Array.from(this.bellContacts.entries()),active:Array.from(this.active)};}
+    restore(data) {
+      if(!data||data.v!==1)throw new Error('この砂場の保存形式には対応していません');
+      // Decode and validate a separate simulation so a broken link never alters a live world.
+      const staged=new SandSim(data.w,data.h);
+      for(const [key,field,min,max]of [['g','grid',0,14],['t','heat',-100,1400],['a','age',0,65535],['n','nutrient',0,255],['m','motion',0,2],['s','serial',0,0xffffffff]])unpack(data[key],staged[field],min,max);
+      if(!integerBetween(data.tick,0,0xfffffffe)||!integerBetween(data.rng,1,0xffffffff)||!integerBetween(data.serial,0,0xffffffff))throw new Error('砂場の時刻データが不正です');
+      const identities=new Set();
+      for(let i=0;i<staged.size;i++){
+        const id=staged.grid[i],serial=staged.serial[i];
+        if(!id){if(serial!==0)throw new Error('空のセルの識別情報が不正です');continue;}
+        if(!serial||serial>data.serial||identities.has(serial))throw new Error('粒の識別情報が不正です');
+        identities.add(serial);staged.counts[id]++;
+      }
+      const chunks=staged.cols*staged.rows;
+      if(!Array.isArray(data.active)||data.active.length>chunks||data.active.some(c=>!integerBetween(c,0,chunks-1))||new Set(data.active).size!==data.active.length)throw new Error('砂場の更新範囲が不正です');
+      if(!Array.isArray(data.bells)||data.bells.length>staged.counts[11])throw new Error('鈴の接触データが不正です');
+      const contacts=new Map();
+      for(const e of data.bells){
+        if(!Array.isArray(e)||e.length!==2||!integerBetween(e[0],0,staged.size-1)||staged.grid[e[0]]!==11||contacts.has(e[0])||!Array.isArray(e[1])||e[1].length>4||e[1].some(v=>!integerBetween(v,1,data.serial))||new Set(e[1]).size!==e[1].length)throw new Error('鈴の接触データが不正です');
+        contacts.set(e[0],e[1].slice());
+      }
+      staged.tick=data.tick;staged.rng=data.rng;staged.nextSerial=data.serial;staged.active=new Set(data.active);staged.bellContacts=contacts;
+      const callback=this.onEvent;Object.assign(this,staged);this.onEvent=callback;
+      let particles=0;for(let i=1;i<this.counts.length;i++)particles+=this.counts[i];this._stats={particles,activeChunks:this.active.size,updatedCells:0,tick:this.tick};
+    }
+  }
+  root.MATERIALS=MATERIALS;root.REACTIONS=REACTIONS;root.SandSim=SandSim;
+})(typeof window!=='undefined'?window:globalThis);
+
+</script>
+<script>
+/* SandAudio: sample-free synthesis; the audio clock owns the eighth-note grid. */
+(() => {
+  'use strict';
+  const SCALES = Object.freeze({
+    major: Object.freeze([0, 2, 4, 7, 9]),
+    minor: Object.freeze([0, 3, 5, 7, 10]),
+    dorian: Object.freeze([0, 2, 3, 5, 7, 9, 10]),
+    japanese: Object.freeze([0, 1, 5, 7, 8])
+  });
+  const DOWNWARD = new Set(['water_fire', 'water_lava', 'water_hot_metal', 'water_hot_stone', 'water_hot_glass']);
+  const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
+  const finite = (n, fallback) => Number.isFinite(Number(n)) ? Number(n) : fallback;
+  const priority = e => e.kind === 'bell' ? 7 : e.kind === 'grow' ? 6 : e._phrase ? 5 : e.kind === 'reaction' ? 4 : 1;
+
+  class SandAudio {
+    constructor({ onPulse = () => {}, onNote = () => {} } = {}) {
+      this.onPulse = onPulse;
+      this.onNote = onNote;
+      this.bpm = 96;
+      this.scale = 'major';
+      this.volume = 0.55;
+      this.muted = false;
+      this.paused = false;
+      this.hidden = false;
+      this._ctx = null;
+      this._running = false;
+      this._disposed = false;
+      this._interval = null;
+      this._queue = new Map();
+      this._phrases = [];
+      this._voices = [];
+      this._timers = new Set();
+      this._cursor = 0;
+      this._lastStep = -1;
+      this._nextTime = 0;
+      this._beatBudget = 0;
+      this._budgetBeat = -1;
+      this._growthDegree = 0;
+      this._revision = 0;
+      this._notesPlayed = 0;
+      this._notesScheduled = 0;
+      this._dropped = 0;
+      this._maxVoices = 0;
+      this._lastNotes = [];
+      this._destination = null;
+      this._analyser = null;
+      this._unlocking = null;
+    }
+
+    get audioContext() { return this._ctx; }
+    get streamDestination() { return this._destination; }
+    get analyser() { return this._analyser; }
+    get ready() { return !!this._ctx && this._ctx.state !== 'closed'; }
+    get running() { return this._running && this._ctx?.state === 'running'; }
+    get status() { return this.stats; }
+    get stats() {
+      const now = this._ctx?.currentTime || 0;
+      return {
+        ready: this.ready, running: this.running, bpm: this.bpm, scale: this.scale,
+        volume: this.volume, muted: this.muted, paused: this.paused, hidden: this.hidden,
+        voices: this._voices.filter(v => v.start <= now && v.end > now).length,
+        reservedVoices: this._voices.length, maxVoices: this._maxVoices,
+        notesPlayed: this._notesPlayed, notesScheduled: this._notesScheduled,
+        dropped: this._dropped, queued: this._queue.size,
+        beat: Math.max(0, Math.floor(this._lastStep / 2)), step: Math.max(0, this._lastStep),
+        lastNotes: this._lastNotes.map(n => ({ ...n }))
+      };
+    }
+
+    async unlock() {
+      if (this._disposed) return false;
+      if (this.running && !this.paused && !this.hidden) return true;
+      if (this._unlocking) return this._unlocking;
+      if (!this._ctx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return false;
+        this._ctx = new AudioContextClass({ latencyHint: 'interactive' });
+        this._buildGraph();
+      }
+      if (this.paused || this.hidden) return true;
+      const revision = ++this._revision;
+      const pending = (async () => {
+        try { await this._ctx.resume(); } catch (_) { return false; }
+        if (this._disposed) return false;
+        // A pause/visibility action during resume is deliberate, not an unlock failure.
+        if (this.paused || this.hidden) return this.ready;
+        if (revision !== this._revision) return this.running;
+        if (this._ctx.state !== 'running') return false;
+        this._start();
+        return true;
+      })();
+      this._unlocking = pending;
+      try { return await pending; }
+      finally { if (this._unlocking === pending) this._unlocking = null; }
+    }
+
+    _buildGraph() {
+      const c = this._ctx;
+      this._mix = c.createGain();
+      const compressor = c.createDynamicsCompressor();
+      compressor.threshold.value = -19;
+      compressor.knee.value = 18;
+      compressor.ratio.value = 8;
+      compressor.attack.value = 0.003;
+      compressor.release.value = 0.2;
+      const highpass = c.createBiquadFilter();
+      highpass.type = 'highpass';
+      highpass.frequency.value = 32;
+      this._output = c.createGain();
+      this._output.gain.value = this.muted ? 0 : this.volume;
+      this._analyser = c.createAnalyser();
+      this._analyser.fftSize = 256;
+      this._analyser.smoothingTimeConstant = 0.78;
+      this._destination = c.createMediaStreamDestination();
+      this._mix.connect(compressor);
+      compressor.connect(highpass);
+      highpass.connect(this._output);
+      this._output.connect(this._analyser);
+      this._analyser.connect(c.destination);
+      this._analyser.connect(this._destination);
+      // Noise is generated locally. No audio assets, fetches, or recorded samples.
+      this._noise = c.createBuffer(1, Math.ceil(c.sampleRate * 1.5), c.sampleRate);
+      const data = this._noise.getChannelData(0);
+      let seed = 0x5a17a93;
+      let smooth = 0;
+      for (let i = 0; i < data.length; i++) {
+        seed ^= seed << 13; seed ^= seed >>> 17; seed ^= seed << 5;
+        const white = ((seed >>> 0) / 4294967296) * 2 - 1;
+        smooth = (smooth + 0.04 * white) / 1.04;
+        data[i] = 0.35 * white + 2.8 * smooth;
+      }
+    }
+
+    setBpm(value) {
+      const next = clamp(Math.round(finite(value, 96)), 40, 200);
+      if (next === this.bpm) return;
+      this.bpm = next;
+      if (this._running) this._retime();
+    }
+
+    setScale(value) {
+      if (!Object.prototype.hasOwnProperty.call(SCALES, value) || value === this.scale) return;
+      this.scale = value;
+      this._growthDegree = 0;
+      this._phrases.length = 0;
+      if (this._running) this._retime();
+    }
+
+    setVolume(value) {
+      this.volume = clamp(finite(value, this.volume), 0, 1);
+      this._applyVolume();
+    }
+
+    setMuted(value) { this.muted = !!value; this._applyVolume(); }
+
+    _applyVolume() {
+      if (!this._ctx || !this._output) return;
+      const p = this._output.gain, now = this._ctx.currentTime;
+      p.cancelScheduledValues(now);
+      p.setTargetAtTime(this.muted || this.hidden || this.paused ? 0 : this.volume, now, 0.012);
+    }
+
+    setPaused(value) {
+      if (this.paused === !!value) return Promise.resolve(this.running);
+      this.paused = !!value;
+      return this._syncActivity();
+    }
+
+    async setHidden(value) {
+      if (this.hidden === !!value) return this.running;
+      this.hidden = !!value;
+      return this._syncActivity();
+    }
+
+    async _syncActivity() {
+      const revision = ++this._revision;
+      if (!this._ctx || this._disposed) return false;
+      if (this.paused || this.hidden) {
+        this._stop();
+        this._applyVolume();
+        try { if (this._ctx.state === 'running') await this._ctx.suspend(); } catch (_) { /* Closed by teardown. */ }
+        return false;
+      }
+      try { await this._ctx.resume(); } catch (_) { return false; }
+      if (revision !== this._revision || this.paused || this.hidden || this._disposed) return false;
+      if (this._ctx.state === 'running') { this._applyVolume(); this._start(); return true; }
+      return false;
+    }
+
+    _start() {
+      if (this._running) return;
+      this._running = true;
+      this._nextTime = this._ctx.currentTime + 0.065;
+      this._applyVolume();
+      this._scheduler();
+      this._interval = setInterval(() => this._scheduler(), 25);
+    }
+
+    _stop() {
+      this._running = false;
+      if (this._interval !== null) clearInterval(this._interval);
+      this._interval = null;
+      this._queue.clear();
+      this._phrases.length = 0;
+      this._cancelSound();
+      this._cursor = Math.max(0, this._lastStep + 1);
+    }
+
+    _cancelSound() {
+      for (const timer of this._timers) clearTimeout(timer);
+      this._timers.clear();
+      for (const voice of this._voices) {
+        for (const node of voice.sources) { try { node.stop(); } catch (_) { /* Already ended. */ } }
+        for (const node of voice.nodes) { try { node.disconnect(); } catch (_) { /* Already detached. */ } }
+      }
+      this._voices.length = 0;
+    }
+
+    _retime() {
+      this._cancelSound();
+      this._phrases.length = 0;
+      this._cursor = Math.max(0, Math.ceil((this._lastStep + 1) / 2) * 2);
+      this._budgetBeat = -1;
+      this._beatBudget = 0;
+      this._nextTime = this._ctx.currentTime + 0.065;
+    }
+
+    enqueue(input) {
+      if (!input || !this.ready || !this._running || this.hidden || this.paused) return;
+      const e = { ...input };
+      e.material = clamp(Math.round(finite(e.material, 1)), 1, 14);
+      e.kind = ['impact', 'reaction', 'bell', 'grow'].includes(e.kind) ? e.kind : 'impact';
+      e.x = finite(e.x, 0); e.y = finite(e.y, 0);
+      e.nx = clamp(finite(e.nx, e.x / 112), 0, 1);
+      e.ny = clamp(finite(e.ny, e.y / 140), 0, 1);
+      e.count = clamp(Math.round(finite(e.count, 1)), 1, 64);
+      // Contacts on one bell are counted together. Other dense showers collapse into zones.
+      const key = e.kind === 'bell' ? `bell:${e.x}:${e.y}` : `${e.kind}:${e.material}:${e.reaction || ''}:${Math.floor(e.nx * 12)}`;
+      const previous = this._queue.get(key);
+      if (previous) {
+        previous.count = Math.min(64, previous.count + e.count);
+        previous.strength = Math.max(finite(previous.strength, 1), finite(e.strength, 1));
+        return;
+      }
+      if (this._queue.size >= 96) {
+        const removable = [...this._queue].find(([, queued]) => priority(queued) < priority(e));
+        if (!removable) { this._dropped++; return; }
+        this._queue.delete(removable[0]);
+        this._dropped++;
+      }
+      this._queue.set(key, e);
+    }
+
+    _scheduler() {
+      if (!this._running || this._ctx.state !== 'running' || this.hidden || this.paused) return;
+      const now = this._ctx.currentTime;
+      this._prune(now);
+      // An interrupted foreground clock resumes from now, without replaying a backlog.
+      if (this._nextTime < now - 0.06) {
+        this._nextTime = now + 0.035;
+        this._queue.clear();
+        this._phrases.length = 0;
+      }
+      while (this._nextTime < now + 0.085) {
+        const step = this._cursor++, time = this._nextTime;
+        this._tick(step, time);
+        this._nextTime += 30 / this.bpm;
+      }
+    }
+
+    _prune(now) {
+      this._voices = this._voices.filter(v => {
+        if (v.end > now) return true;
+        for (const node of v.nodes) { try { node.disconnect(); } catch (_) { /* Complete. */ } }
+        return false;
+      });
+    }
+
+    _at(time, fn) {
+      const revision = this._revision;
+      const timer = setTimeout(() => {
+        this._timers.delete(timer);
+        if (!this._running || this._ctx.state !== 'running' || this.hidden || this.paused || revision !== this._revision) return;
+        fn();
+      }, Math.max(0, (time - this._ctx.currentTime) * 1000));
+      this._timers.add(timer);
+    }
+
+    _tick(step, time) {
+      const beat = Math.floor(step / 2);
+      if (beat !== this._budgetBeat) { this._budgetBeat = beat; this._beatBudget = 0; }
+      this._at(time, () => { this._lastStep = step; this.onPulse({ beat, step, time }); });
+      const due = this._phrases.filter(e => e._due <= step);
+      this._phrases = this._phrases.filter(e => e._due > step);
+      const events = due.concat([...this._queue.values()]);
+      this._queue.clear();
+      events.sort((a, b) => priority(b) - priority(a) || b.count - a.count);
+      const seen = new Set();
+      const mixed = events.some(e => e.kind !== 'reaction' && !e._phrase);
+      let count = 0, reactions = 0, phrases = 0;
+      for (const e of events) {
+        if (count >= 6 || this._beatBudget >= 10 || this._voices.length >= 16) { this._dropped++; continue; }
+        // A noisy reaction area must leave room for placed bells, growth, and landings.
+        if (mixed && ((e._phrase && phrases >= 2) || (!e._phrase && e.kind === 'reaction' && reactions >= 2))) { this._dropped++; continue; }
+        const degree = e._degree === undefined ? this._degree(e) : e._degree;
+        const midi = this._midi(degree);
+        const key = `${e.material}:${midi}`;
+        if (seen.has(key)) { this._dropped++; continue; }
+        seen.add(key);
+        if (!this._synth(e, midi, time)) continue;
+        count++; this._beatBudget++; this._notesScheduled++;
+        if (e._phrase) phrases++;
+        else if (e.kind === 'reaction') reactions++;
+        const note = { ...e, midi, time, beat, step };
+        this._at(time, () => {
+          this._notesPlayed++;
+          this._lastNotes.push({ midi, material: e.material, time, step, scale: this.scale });
+          if (this._lastNotes.length > 32) this._lastNotes.shift();
+          this.onNote(note);
+        });
+        if (!e._phrase && DOWNWARD.has(e.reaction) && this._phrases.length < 12) {
+          this._phrases.push({ ...e, _phrase: true, _due: step + 1, _degree: degree - 1, strength: 0.6 });
+          this._phrases.push({ ...e, _phrase: true, _due: step + 2, _degree: degree - 2, strength: 0.35 });
+        }
+      }
+    }
+
+    _degree(e) {
+      const n = SCALES[this.scale].length;
+      const location = Math.min(n - 1, Math.floor(e.nx * n));
+      if (e.kind === 'bell') return n + (e.count - 1) % (n * 2);
+      if (e.kind === 'grow') {
+        const degree = n + this._growthDegree % (n * 2);
+        this._growthDegree++;
+        return degree;
+      }
+      const registers = { 1: 0, 2: 1, 3: -1, 4: -1, 5: 1, 6: 2, 7: 2, 8: -1, 9: 1, 10: 1, 11: 1, 12: 2, 13: 1, 14: -1 };
+      return location + n * (registers[e.material] ?? 0);
+    }
+
+    _midi(degree) {
+      const scale = SCALES[this.scale], n = scale.length;
+      degree = clamp(Math.round(degree), -n, n * 3 - 1);
+      return 60 + 12 * Math.floor(degree / n) + scale[((degree % n) + n) % n];
+    }
+
+    _synth(event, midi, time) {
+      const c = this._ctx, frequency = 440 * 2 ** ((midi - 69) / 12);
+      const material = event.material;
+      const nodes = [], sources = [];
+      const voice = c.createGain(); nodes.push(voice);
+      const filter = c.createBiquadFilter(); nodes.push(filter);
+      filter.type = 'lowpass'; filter.frequency.value = 9000; filter.Q.value = 0.45;
+      voice.connect(filter);
+      if (c.createStereoPanner) {
+        const pan = c.createStereoPanner(); nodes.push(pan);
+        pan.pan.value = (event.nx - 0.5) * 0.9;
+        filter.connect(pan); pan.connect(this._mix);
+      } else filter.connect(this._mix);
+      let attack = 0.006, duration = 0.58, level = 0.16;
+      const partials = [];
+      let noiseLevel = 0, noiseBand = 1700;
+      switch (material) {
+        case 1: partials.push(['sine', 1, 1], ['triangle', 2, 0.14]); filter.frequency.value = 2600; duration = 0.45; break;
+        case 2: partials.push(['sine', 1, 1], ['sine', 3, 0.24], ['sine', 4, 0.07]); duration = 0.68; level = 0.15; break;
+        case 3: partials.push(['triangle', 1, 0.7], ['sine', 2, 0.2]); filter.frequency.value = 950; duration = 0.5; level = 0.13; break;
+        case 4: partials.push(['sine', 1, 0.65], ['triangle', 2, 0.12]); noiseLevel = 0.22; noiseBand = 900; attack = 0.055; duration = 1.02; level = 0.13; filter.frequency.value = 1800; break;
+        case 5: partials.push(['sine', 1, 0.8], ['sine', 2, 0.16]); noiseLevel = 0.09; attack = 0.06; duration = 0.8; level = 0.11; break;
+        case 6: partials.push(['sine', 1, 0.8], ['sine', 2, 0.35], ['sine', 4, 0.12]); duration = 1.1; level = 0.12; break;
+        case 7: partials.push(['sine', 1, 0.8], ['sine', 3, 0.06]); noiseLevel = 0.04; duration = 0.37; level = 0.11; break;
+        case 8: partials.push(['sine', 1, 0.8], ['triangle', 2, 0.3]); filter.frequency.value = 1300; duration = 0.22; level = 0.17; break;
+        case 9: partials.push(['sine', 1, 0.75], ['sine', 2, 0.35], ['sine', 3, 0.2], ['sine', 4, 0.1]); duration = 1.14; level = 0.13; break;
+        case 10: partials.push(['triangle', 1, 0.65], ['sine', 2, 0.1]); duration = 0.26; level = 0.14; break;
+        case 11: partials.push(['sine', 1, 0.85], ['sine', 2, 0.3], ['sine', 3, 0.2]); duration = 1.2; level = 0.16; break;
+        case 12: partials.push(['sine', 1, 0.8], ['sine', 3, 0.24], ['sine', 5, 0.1]); duration = 0.87; level = 0.11; break;
+        case 13: partials.push(['sine', 1, 0.85], ['triangle', 2, 0.15]); attack = 0.015; duration = 0.78; level = 0.14; break;
+        case 14: partials.push(['triangle', 1, 0.55], ['sine', 2, 0.2]); noiseLevel = 0.15; noiseBand = 600; attack = 0.04; duration = 0.85; level = 0.14; filter.frequency.value = 1500; break;
+      }
+      const strength = clamp(finite(event.strength, 1), 0.2, 1.2);
+      level *= Math.sqrt(strength);
+      voice.gain.setValueAtTime(0, time);
+      voice.gain.linearRampToValueAtTime(level, time + attack);
+      voice.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+      voice.gain.setValueAtTime(0, time + duration + 0.015);
+      for (const [type, ratio, weight] of partials) {
+        const oscillator = c.createOscillator(), gain = c.createGain();
+        nodes.push(oscillator, gain); sources.push(oscillator);
+        oscillator.type = type; oscillator.frequency.setValueAtTime(frequency * ratio, time);
+        gain.gain.setValueAtTime(weight, time);
+        // Higher partials disappear sooner, giving each strike a clear, soft tail.
+        if (ratio > 1) gain.gain.exponentialRampToValueAtTime(Math.max(0.0001, weight * 0.025), time + duration * 0.65);
+        oscillator.connect(gain); gain.connect(voice);
+        oscillator.start(time); oscillator.stop(time + duration + 0.025);
+      }
+      if (noiseLevel) {
+        const source = c.createBufferSource(), gain = c.createGain(), band = c.createBiquadFilter();
+        nodes.push(source, gain, band); sources.push(source);
+        source.buffer = this._noise;
+        band.type = 'bandpass'; band.frequency.value = noiseBand; band.Q.value = 0.6;
+        gain.gain.value = noiseLevel;
+        source.connect(band); band.connect(gain); gain.connect(voice);
+        source.start(time); source.stop(time + duration + 0.025);
+      }
+      this._voices.push({ start: time, end: time + duration + 0.03, nodes, sources });
+      this._maxVoices = Math.max(this._maxVoices, this._voices.length);
+      return true;
+    }
+
+    async dispose() {
+      this._disposed = true;
+      this._revision++;
+      this._stop();
+      if (this._ctx && this._ctx.state !== 'closed') {
+        try { await this._ctx.close(); } catch (_) { /* Already closing. */ }
+      }
+    }
+  }
+  window.SAND_SCALES = SCALES;
+  window.SandAudio = SandAudio;
+})();
+
+</script>
+<script>
+(function(){
+'use strict';
+const $=id=>document.getElementById(id), canvas=$('sand-canvas'), ctx=canvas.getContext('2d',{alpha:false});
+const icons=[null,'<path d="M4 16h3v3H4zm7-4h3v3h-3zm6 4h3v3h-3zM7 6h3v3H7zm9-3h3v3h-3z"/>','<path d="M12 2C10 6 5 11 5 15a7 7 0 0 0 14 0c0-4-5-9-7-13z"/>','<path d="M12 2C9 8 6 11 6 16a6 6 0 0 0 12 0c0-5-3-8-6-14zm-3 14h6v2H9z"/>','<path d="M13 1c4 7-2 9 3 12l2-4c6 8 1 14-6 14S2 16 6 10c0 4 2 5 2 5C6 8 13 7 13 1z"/>','<path d="M4 16a4 4 0 1 1 2-7 5 5 0 0 1 10-2 5 5 0 1 1 2 10H4zm3 4h10v2H7z"/>','<path d="m12 1 9 6v11l-9 5-9-5V7zm0 3L6 8l6 3 6-3zm-6 7v5l4 3v-6zm8 2v6l4-3v-5z"/>','<path d="M11 1h2v9l8-4 1 2-8 4 8 4-1 2-8-4v9h-2v-9l-8 4-1-2 8-4-8-4 1-2 8 4z"/>','<path d="m3 9 5-5 10 1 4 12-5 4H5L1 16z"/>','<path d="m4 4 15-2 3 16-16 4zm3 3 2 11 9-2-1-10z"/>','<path d="M18 3C5 0 0 15 6 20 13 25 23 13 18 3zM7 17l9-11 1 1-9 11z"/>','<path d="M12 2a6 6 0 0 0-6 6v5l-3 5h18l-3-5V8a6 6 0 0 0-6-6zm-3 18a3 3 0 0 0 6 0z"/>','<path d="m6 2 13 2 3 14-16 4-4-12zm1 3L5 11l3 8 11-3-2-9z"/>','<path d="M11 23v-9C2 14 1 7 2 3c7-1 12 2 11 8 0-7 5-10 10-9 0 8-4 12-10 12v9z"/>','<path d="m3 19 6-9 3 4 4-11 6 16zm-1 2h21v2H2z"/>'];
+const soundNames=['','SOFT KEYS','MARIMBA','WARM PLUCK','EMBER PAD','AIR','ICE CHIME','SNOW DUST','LOW WOOD','METAL BELL','SEED PLUCK','COUNTING BELL','GLASS TONE','ARPEGGIO','LOW EMBER'];
+const scaleLabels={major:'C MAJOR PENTATONIC',minor:'C MINOR PENTATONIC',dorian:'C DORIAN',japanese:'C JAPANESE'};
+const scaleNotes={major:'C · D · E · G · A',minor:'C · E♭ · F · G · B♭',dorian:'C · D · E♭ · F · G · A · B♭',japanese:'C · D♭ · F · G · A♭'};
+let sim,audio,selected=1,tool='draw',radius=3,paused=false,muted=false,cell=4,dpr=1,drawPointer=null,cursor=null,raf=0,lastFrame=0,accumulator=0,frameCount=0,fpsStart=0,fps=60,demoUntil=0,started=false,flashes=[],toastTimer,recording=null,videoURL=null,background=null,busy=false;
+const eventLog=[];
+function readStore(key,fallback){try{const v=JSON.parse(localStorage.getItem(key));return v??fallback;}catch{return fallback;}}
+function saveStore(key,value){try{localStorage.setItem(key,JSON.stringify(value));}catch{/* Private browsing may not persist. */}}
+let discoveries=new Set(readStore('naru-sunaba.discoveries',[]).filter?.(id=>REACTIONS.some(r=>r.id===id))||[]);
+function localDate(){const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');}
+function hashDate(text){let h=2166136261;for(const c of text)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0;}
+const challenges=[{id:'bell',title:'8拍のあいだに、\n鈴の石を3回鳴らそう。',hint:'鈴の石で小さな段を作り、その上へ少しずつ砂を。',target:3},{id:'glass',title:'火を使わずに、\nガラスを生み出そう。',hint:'溶岩の熱、あるいは加熱ブラシ。砂の中に別の姿が眠っています。',target:1},{id:'grow',title:'水と種から、\n8節の旋律を育てよう。',hint:'種のそばに水を注いで。枝が伸びるたび、ひとつの音に。',target:8},{id:'freeze',title:'小さな水面に、\n5粒の氷を作ろう。',hint:'水のそばに氷を置くか、冷却ブラシで水をなぞって。',target:5}];
+let today=localDate(),challenge=challenges[hashDate(today)%challenges.length],daily=readStore('naru-sunaba.daily.'+today,null);
+if(!daily||daily.id!==challenge.id)daily={id:challenge.id,progress:0,done:false,fireUsed:false};
+let bellTimes=[];
+function toast(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),3400);}
+function grain(id){return '<svg class="grain-icon" viewBox="0 0 24 24" aria-hidden="true">'+icons[id]+'</svg>';}
+function updateDaily(){
+ $('today-date').textContent=today.slice(5).replace('-',' / ');$('daily-title').textContent=challenge.title;$('daily-title').style.whiteSpace='pre-line';$('daily-hint').textContent=challenge.hint;
+ $('daily-progress').textContent=`${Math.min(daily.progress,challenge.target)} / ${challenge.target}`;$('daily-fill').style.width=Math.min(100,daily.progress/challenge.target*100)+'%';$('daily-state').textContent=daily.done?'達成しました':'未達成';
+ $('mobile-daily').textContent=daily.done?'今日のお題 ✓ 達成':'今日のお題 ↗';$('daily-dialog-title').textContent=challenge.title.replace('\n','');$('daily-dialog-hint').textContent=challenge.hint;$('daily-dialog-progress').textContent=daily.done?'今日のお題は達成済みです。':`進み具合 ${Math.min(daily.progress,challenge.target)} / ${challenge.target}。砂を描きはじめると計測します。`;
+}
+function advanceDaily(amount){if(daily.done)return;daily.progress=Math.min(challenge.target,daily.progress+amount);if(daily.progress>=challenge.target){daily.done=true;toast('今日のお題を達成。いい音が、生まれました。');}saveStore('naru-sunaba.daily.'+today,daily);updateDaily();}
+function updateDiscovery(){const count=`${discoveries.size} / ${REACTIONS.length}`;$('discovery-count').textContent=count;$('mobile-discovery').textContent=count.replaceAll(' ','');}
+function onEvent(e){
+ eventLog.push(e);if(eventLog.length>150)eventLog.shift();
+ audio.enqueue({...e,nx:e.x/sim.w,ny:e.y/sim.h});
+ if(e.reaction&&!discoveries.has(e.reaction)){discoveries.add(e.reaction);saveStore('naru-sunaba.discoveries',[...discoveries]);updateDiscovery();const r=REACTIONS.find(r=>r.id===e.reaction);if(r)toast('発見：'+r.title);}
+ if(!started||daily.done)return;
+ if(['oil_fire','plant_fire','oil_lava','plant_lava'].includes(e.reaction)&&!daily.fireUsed){daily.fireUsed=true;saveStore('naru-sunaba.daily.'+today,daily);}
+ if(e.reaction==='seed_water'){daily.germinated=true;saveStore('naru-sunaba.daily.'+today,daily);}
+ if(challenge.id==='grow'&&e.kind==='grow'&&daily.germinated)advanceDaily(1);
+ if(challenge.id==='freeze'&&['cold_water','water_ice'].includes(e.reaction))advanceDaily(1);
+ if(challenge.id==='glass'&&['hot_sand','sand_lava'].includes(e.reaction)&&!daily.fireUsed&&!sim.counts[4])advanceDaily(1);
+}
+function onNote(e){
+ flashes.push({x:e.x,y:e.y,t:performance.now(),color:MATERIALS.find(m=>m.id===e.material)?.color||'#a0dccb'});if(flashes.length>80)flashes.shift();
+ if(started&&!daily.done&&challenge.id==='bell'&&e.kind==='bell'){bellTimes.push(e.beat);bellTimes=bellTimes.filter(t=>e.beat-t<8);const previous=daily.progress;daily.progress=Math.min(challenge.target,bellTimes.length);if(daily.progress!==previous)advanceDaily(0);}
+}
+audio=new SandAudio({onPulse:e=>{document.querySelectorAll('.beat-dot').forEach((dot,i)=>dot.classList.toggle('on',i===e.beat%4));if(started&&!daily.done&&challenge.id==='bell'){bellTimes=bellTimes.filter(t=>e.beat-t<8);if(daily.progress!==bellTimes.length){daily.progress=bellTimes.length;saveStore('naru-sunaba.daily.'+today,daily);updateDaily();}}},onNote});
+const palette=$('palette');
+for(const m of MATERIALS){const b=document.createElement('button');b.className='material';b.dataset.material=m.id;b.style.setProperty('--color',m.color);b.setAttribute('aria-pressed',String(m.id===selected));b.setAttribute('aria-label',m.name);b.title=m.hint;b.innerHTML=grain(m.id)+'<span class="name">'+m.name+'</span>';b.addEventListener('click',()=>selectMaterial(m.id));palette.append(b);}
+function selectMaterial(id){selected=id;setTool('draw');const m=MATERIALS.find(x=>x.id===id);document.querySelectorAll('.material').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.material===id)));$('material-name').textContent=m.name;$('material-sound').textContent=soundNames[id];$('material-description').textContent=m.hint;$('material-orb').innerHTML=grain(id);$('material-orb').style.color=m.color;$('material-orb').style.background=m.color+'12';$('selected-hint').textContent=m.name+' · '+m.hint.split('、').pop();}
+function setTool(value){tool=value;for(const [id,t]of [['erase','erase'],['heat','heat'],['cold','cold'],['pan','pan']]){$(id).classList.toggle('active',t===tool);$(id).setAttribute('aria-pressed',String(t===tool));}canvas.style.touchAction=tool==='pan'?'pan-x pan-y':'none';canvas.style.cursor=tool==='pan'?'grab':'crosshair';}
+async function unlock(){const success=await audio.unlock();if(success){$('sound-start').hidden=true;$('mute').setAttribute('aria-label',muted?'音を出す':'音をミュート');$('mute').setAttribute('aria-pressed',String(!muted));$('live-status').textContent=paused?'PAUSED':muted?'SOUND OFF':'SOUND ON';}else{toast('音声を開始できませんでした。もう一度、音のボタンを押してください。');}return success;}
+document.addEventListener('pointerdown',e=>{if((!audio.ready||(!audio.running&&!paused&&!document.hidden))&&!e.target.closest('#mute'))void unlock();},{capture:true});
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&(!audio.ready||(!audio.running&&!paused&&!document.hidden))&&!e.target.closest('#mute'))void unlock();},{capture:true});
+$('sound-start').addEventListener('click',async()=>{await unlock();if(sim.counts[1]<100)sim.brush(Math.floor(sim.w*.22),Math.floor(sim.h*.14),3,1);demoUntil=performance.now()+3500;});
+$('mute').addEventListener('click',async()=>{if(!audio.ready){await unlock();return;}muted=!muted;audio.setMuted(muted);$('mute').style.opacity=muted?'.45':'1';$('mute').setAttribute('aria-label',muted?'音を出す':'音をミュート');$('mute').setAttribute('aria-pressed',String(!muted));$('live-status').textContent=paused?'PAUSED':muted?'SOUND OFF':'SOUND ON';});
+function setPaused(value){paused=value;audio.setPaused(value);document.querySelector('.playfield').classList.toggle('paused',value);$('pause').setAttribute('aria-pressed',String(value));$('pause').setAttribute('aria-label',value?'再生':'一時停止');$('pause').innerHTML='<svg class="icon"><use href="'+(value?'#i-play':'#i-pause')+'"/></svg>';$('live-status').textContent=value?'PAUSED':audio.ready?(muted?'SOUND OFF':'SOUND ON'):'READY TO PLAY';accumulator=0;}
+$('pause').addEventListener('click',()=>{setPaused(!paused);});
+$('erase').addEventListener('click',()=>setTool(tool==='erase'?'draw':'erase'));
+$('heat').addEventListener('click',()=>setTool(tool==='heat'?'draw':'heat'));
+$('cold').addEventListener('click',()=>setTool(tool==='cold'?'draw':'cold'));
+$('pan').addEventListener('click',()=>setTool(tool==='pan'?'draw':'pan'));
+$('brush-size').addEventListener('input',e=>{radius=+e.target.value;$('brush-value').textContent=radius;});
+function changeMusic(){const bpm=Math.max(40,Math.min(180,parseInt($('bpm').value,10)||96));$('bpm').value=bpm;audio.setBpm(bpm);audio.setScale($('scale').value);audio.setVolume(+$('volume').value/100);$('scene-scale').textContent=scaleLabels[$('scale').value];$('note-tags').textContent=scaleNotes[$('scale').value];$('mobile-bpm').textContent=bpm+' BPM';}
+$('bpm').addEventListener('change',changeMusic);$('scale').addEventListener('change',changeMusic);$('volume').addEventListener('input',changeMusic);
+function pointerPosition(e){const r=canvas.getBoundingClientRect();return {x:Math.max(0,Math.min(sim.w-1,(e.clientX-r.left)/cell)),y:Math.max(0,Math.min(sim.h-1,(e.clientY-r.top)/cell))};}
+function paint(p){if(tool==='pan')return;if(tool==='heat'||tool==='cold')sim.changeTemperature(p.x,p.y,radius,tool==='heat'?340:-80);else sim.brush(p.x,p.y,radius,tool==='erase'?0:selected);if(selected===4&&tool==='draw'){daily.fireUsed=true;saveStore('naru-sunaba.daily.'+today,daily);}}
+function stroke(a,b){const distance=Math.hypot(b.x-a.x,b.y-a.y),steps=Math.max(1,Math.ceil(distance/Math.max(1,radius*.7)));for(let i=1;i<=steps;i++)paint({x:a.x+(b.x-a.x)*i/steps,y:a.y+(b.y-a.y)*i/steps});}
+canvas.addEventListener('pointerdown',e=>{if(!sim||e.button>0||tool==='pan')return;e.preventDefault();canvas.setPointerCapture(e.pointerId);started=true;demoUntil=0;drawPointer={id:e.pointerId,...pointerPosition(e)};cursor=drawPointer;paint(drawPointer);});
+canvas.addEventListener('pointermove',e=>{if(!sim)return;const p=pointerPosition(e);cursor=p;if(drawPointer&&e.pointerId===drawPointer.id){stroke(drawPointer,p);drawPointer={id:e.pointerId,...p};}});
+function endPointer(e){if(drawPointer?.id===e.pointerId){drawPointer=null;if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);}if(e.pointerType==='touch')cursor=null;}
+canvas.addEventListener('pointerup',endPointer);canvas.addEventListener('pointercancel',endPointer);canvas.addEventListener('pointerleave',()=>{if(!drawPointer)cursor=null;});canvas.addEventListener('contextmenu',e=>e.preventDefault());
+canvas.addEventListener('keydown',e=>{if(!sim)return;cursor??={x:sim.w/2,y:sim.h/3};const move={ArrowLeft:[-2,0],ArrowRight:[2,0],ArrowUp:[0,-2],ArrowDown:[0,2]}[e.key];if(move){e.preventDefault();cursor.x=Math.max(0,Math.min(sim.w-1,cursor.x+move[0]));cursor.y=Math.max(0,Math.min(sim.h-1,cursor.y+move[1]));}if(e.key==='Enter'){e.preventDefault();started=true;demoUntil=0;paint(cursor);}});
+document.addEventListener('keydown',e=>{if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)||document.querySelector('dialog[open]'))return;if(e.code==='Space'){e.preventDefault();if(!recording)setPaused(!paused);}if(e.key.toLowerCase()==='e')setTool(tool==='erase'?'draw':'erase');});
+function resize(){if(!sim)return;const field=document.querySelector('.playfield');cell=Math.max(3,Math.min((field.clientWidth-1)/sim.w,(field.clientHeight-1)/sim.h));dpr=Math.min(2,window.devicePixelRatio||1);canvas.style.width=sim.w*cell+'px';canvas.style.height=sim.h*cell+'px';canvas.width=Math.round(sim.w*cell*dpr);canvas.height=Math.round(sim.h*cell*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);const overflow=sim.w*cell>field.clientWidth+1||sim.h*cell>field.clientHeight+1;$('pan').hidden=!overflow;$('pan-hint').style.display=overflow?'block':'none';background=document.createElement('canvas');background.width=canvas.width;background.height=canvas.height;const b=background.getContext('2d');b.scale(dpr,dpr);const g=b.createRadialGradient(canvas.width/dpr*.5,canvas.height/dpr*.5,0,canvas.width/dpr*.5,canvas.height/dpr*.5,canvas.width/dpr*.7);g.addColorStop(0,'#12232a');g.addColorStop(1,'#0b151b');b.fillStyle=g;b.fillRect(0,0,canvas.width/dpr,canvas.height/dpr);b.fillStyle='#29404a80';for(let y=8;y<sim.h;y+=8)for(let x=8;x<sim.w;x+=8)b.fillRect(x*cell,y*cell,1,1);render(performance.now());}
+const colors=MATERIALS.map(m=>{const n=parseInt(m.color.slice(1),16),r=n>>16,g=n>>8&255,b=n&255;return Array.from({length:7},(_,i)=>`rgb(${Math.min(255,Math.max(0,r+(i-3)*5))} ${Math.min(255,Math.max(0,g+(i-3)*5))} ${Math.min(255,Math.max(0,b+(i-3)*5))})`);});
+function render(now){if(!sim||!background)return;ctx.drawImage(background,0,0,canvas.width/dpr,canvas.height/dpr);const grid=sim.grid;for(let i=0;i<grid.length;i++){const m=grid[i];if(!m)continue;const x=(i%sim.w)*cell,y=Math.floor(i/sim.w)*cell;const shade=((sim.serial[i]*2654435761)>>>0)%7;ctx.globalAlpha=m===5?.52:m===12?.79:1;ctx.fillStyle=colors[m-1][shade];const gap=cell>=5?.35:0;ctx.fillRect(x,y,cell-gap,cell-gap);if((m===4||m===14)&&sim.serial[i]%4===0){ctx.fillStyle='#ffd58a';ctx.fillRect(x,y,cell*.45,cell*.45);}}ctx.globalAlpha=1;
+ flashes=flashes.filter(f=>now-f.t<480);for(const f of flashes){const life=1-(now-f.t)/480,x=(f.x+.5)*cell,y=(f.y+.5)*cell;ctx.globalAlpha=life*.7;ctx.fillStyle='#fff8dc';ctx.fillRect(f.x*cell-1,f.y*cell-1,cell+2,cell+2);ctx.strokeStyle=f.color;ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,cell+(1-life)*17,0,Math.PI*2);ctx.stroke();}ctx.globalAlpha=1;
+ if(cursor&&tool!=='pan'){ctx.strokeStyle=tool==='erase'?'#ee9f92':tool==='cold'?'#a2e7f1':tool==='heat'?'#ffae78':'#edc58190';ctx.lineWidth=1;ctx.beginPath();ctx.arc((cursor.x+.5)*cell,(cursor.y+.5)*cell,(radius+.5)*cell,0,Math.PI*2);ctx.stroke();}
+ if(recording){ctx.font='11px sans-serif';ctx.fillStyle='#a7c6c4';ctx.fillText('鳴る砂場  /  '+$('bpm').value+' BPM',15,canvas.height/dpr-15);}
+}
+function frame(now){if(document.hidden){raf=0;return;}const dt=Math.min(100,now-(lastFrame||now));lastFrame=now;frameCount++;if(!fpsStart)fpsStart=now;if(now-fpsStart>=800){fps=Math.round(frameCount*1000/(now-fpsStart));frameCount=0;fpsStart=now;$('performance').textContent=`${fps} FPS · QUANTIZED`;$('cell-count').textContent=sim.stats.particles.toLocaleString()+' PARTICLES';if(localDate()!==today){today=localDate();challenge=challenges[hashDate(today)%challenges.length];daily=readStore('naru-sunaba.daily.'+today,{id:challenge.id,progress:0,done:false,fireUsed:false});bellTimes=[];updateDaily();}}
+ if(!paused&&!busy){accumulator+=dt;let n=0;while(accumulator>=1000/30&&n<3){if(drawPointer)paint(drawPointer);if(now<demoUntil&&sim.tick%3===0)sim.brush(Math.floor(sim.w*.23),Math.floor(sim.h*.1),1,1);sim.step();accumulator-=1000/30;n++;}}render(now);raf=requestAnimationFrame(frame);}
+document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0;drawPointer=null;flashes=[];audio.setHidden(true);if(recording)stopRecording(true);}else{audio.setHidden(false);lastFrame=0;accumulator=0;if(!raf)raf=requestAnimationFrame(frame);}});
+window.addEventListener('resize',resize);
+function openDialog(id){$(id).showModal();}
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>b.closest('dialog').close()));
+document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}}));
+function openJournal(){$('journal-summary').textContent=`${discoveries.size} / ${REACTIONS.length} の発見。粒を混ぜて、まだ知らない音を探そう。`;$('journal-grid').replaceChildren();for(const r of REACTIONS){const seen=discoveries.has(r.id),card=document.createElement('article');card.className='discovery'+(seen?'':' locked');const h=document.createElement('h3');h.textContent=(seen?'✧ ':'◇ ')+(seen?r.title:'まだ見ぬ反応');const p=document.createElement('p');p.textContent=seen?r.formula:r.formula.split('→')[0]+'→ ？';const s=document.createElement('small');s.textContent=seen?r.description:'この組み合わせを試してみよう';card.append(h,p,s);$('journal-grid').append(card);}openDialog('journal-dialog');}
+['journal','journal-top','mobile-journal'].forEach(id=>$(id).addEventListener('click',openJournal));
+['daily-open','mobile-daily'].forEach(id=>$(id).addEventListener('click',()=>{updateDaily();openDialog('daily-dialog');}));
+$('daily-restart').addEventListener('click',()=>{resetWorld();daily={id:challenge.id,progress:0,done:daily.done,fireUsed:false};if(daily.done)daily.progress=challenge.target;saveStore('naru-sunaba.daily.'+today,daily);bellTimes=[];started=true;updateDaily();$('daily-dialog').close();toast('今日の実験をはじめよう。');});
+$('settings').addEventListener('click',()=>{$('settings-slot').append($('music-controls'));openDialog('settings-dialog');});
+$('settings-dialog').addEventListener('close',()=>document.querySelector('.controlbar').append($('music-controls')));
+$('clear').addEventListener('click',()=>openDialog('clear-dialog'));
+function resetWorld(){sim.clear();demoUntil=0;flashes=[];drawPointer=null;audio.setPaused(true);audio.setPaused(paused);render(performance.now());}
+$('clear-confirm').addEventListener('click',()=>{resetWorld();$('clear-dialog').close();toast('砂場を空にしました。');});
+// UTF-8 LZW is the offline fallback; deflate usually gives shorter links.
+function lzwEncode(bytes){let dict=new Map(),next=256,word='',out=[];for(const b of bytes){const c=String.fromCharCode(b),joined=word+c;if(dict.has(joined)||joined.length===1)word=joined;else{out.push(word.length===1?word.charCodeAt(0):dict.get(word));if(next<65535)dict.set(joined,next++);word=c;}}if(word)out.push(word.length===1?word.charCodeAt(0):dict.get(word));const result=new Uint8Array(out.length*2);out.forEach((c,i)=>{result[i*2]=c>>8;result[i*2+1]=c&255;});return result;}
+function lzwDecode(bytes){if(!bytes.length||bytes.length%2)throw Error('共有データが壊れています');let dict=Array.from({length:256},(_,i)=>String.fromCharCode(i)),next=256,word=String.fromCharCode(bytes[0]*256+bytes[1]),out=[word],length=word.length;for(let i=2;i<bytes.length;i+=2){const code=bytes[i]*256+bytes[i+1],entry=dict[code]??(code===next?word+word[0]:null);if(entry==null)throw Error('共有データが壊れています');length+=entry.length;if(length>2000000)throw Error('共有データが大きすぎます');out.push(entry);if(next<65535)dict[next++]=word+entry[0];word=entry;}return Uint8Array.from(out.join(''),c=>c.charCodeAt(0));}
+function base64(bytes){let s='';for(let i=0;i<bytes.length;i+=8192)s+=String.fromCharCode(...bytes.subarray(i,i+8192));return btoa(s).replaceAll('+','-').replaceAll('/','_').replace(/=+$/,'');}
+function unbase64(s){if(!/^[\w-]+$/.test(s)||s.length>600000)throw Error('共有リンクの形式が違います');const b=atob(s.replaceAll('-','+').replaceAll('_','/'));return Uint8Array.from(b,c=>c.charCodeAt(0));}
+async function readBounded(stream){const reader=stream.getReader(),chunks=[];let size=0;try{for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>2000000)throw Error('共有データが大きすぎます');chunks.push(value);}}finally{await reader.cancel().catch(()=>{});}const all=new Uint8Array(size);let at=0;for(const chunk of chunks){all.set(chunk,at);at+=chunk.length;}return all;}
+async function encodeWorld(){const data={version:1,world:sim.snapshot(),bpm:+$('bpm').value,scale:$('scale').value};const bytes=new TextEncoder().encode(JSON.stringify(data));let packed,format;if(typeof CompressionStream==='function'){packed=await readBounded(new Blob([bytes]).stream().pipeThrough(new CompressionStream('deflate')));format='z';}else{packed=lzwEncode(bytes);format='l';}return 's1'+format+'.'+base64(packed);}
+async function decodeWorld(hash){const match=/^#?s1([zl])\.([\w-]+)$/.exec(hash);if(!match)throw Error('共有リンクを読み込めません');let bytes=unbase64(match[2]);if(match[1]==='z'){if(typeof DecompressionStream!=='function')throw Error('この共有リンクには、新しいブラウザが必要です');bytes=await readBounded(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate')));}else bytes=lzwDecode(bytes);const data=JSON.parse(new TextDecoder().decode(bytes));if(data.version!==1||!Number.isInteger(data.bpm)||data.bpm<40||data.bpm>180||!Object.hasOwn(scaleLabels,data.scale))throw Error('共有データの設定が不正です');sim.restore(data.world);$('bpm').value=data.bpm;$('scale').value=data.scale;changeMusic();demoUntil=0;resize();return data;}
+$('share').addEventListener('click',async()=>{if(busy)return;busy=true;$('share').disabled=true;try{const hash=await encodeWorld(),base=location.href.split('#')[0],url=base+'#'+hash;$('share-url').value=url;if(location.protocol==='file:')$('share-description').textContent='このHTMLを同じ公開URLに置いてから共有してください。下のハッシュには砂場の状態が保存されています。';openDialog('share-dialog');}catch{toast('この砂場のリンクを作れませんでした。粒を少し減らして試してください。');}finally{busy=false;$('share').disabled=false;}});
+$('copy-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('share-url').value);toast('共有リンクをコピーしました。');}catch{$('share-url').focus();$('share-url').select();toast('リンクを選択しました。コピーして共有してください。');}});
+async function startRecording(){if(recording)return;if(typeof MediaRecorder==='undefined'||!canvas.captureStream){toast('このブラウザは録画に対応していません。Chrome / Edge / Safari の最新版で試してください。');return;}if(!await unlock())return;if(paused)setPaused(false);if(muted){muted=false;audio.setMuted(false);$('mute').style.opacity='1';$('mute').setAttribute('aria-pressed','true');$('mute').setAttribute('aria-label','音をミュート');}if(+$('volume').value===0){$('volume').value=55;changeMusic();}const types=['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm','video/mp4'];const mimeType=types.find(t=>MediaRecorder.isTypeSupported(t));if(!mimeType){toast('保存できる動画形式が見つかりませんでした。');return;}let stream;try{stream=canvas.captureStream(30);const audioTrack=audio.streamDestination.stream.getAudioTracks()[0];if(!audioTrack)throw Error('No audio track');stream.addTrack(audioTrack.clone());const recorder=new MediaRecorder(stream,{mimeType,videoBitsPerSecond:3500000}),chunks=[];recording={recorder,stream,chunks,mimeType,start:performance.now(),cancelled:false,timer:0,ticker:0};recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};recorder.onerror=()=>{stopRecording(true);toast('録画を保存できませんでした。もう一度試してください。');};recorder.onstop=()=>{const session=recording;if(!session)return;clearTimeout(session.timer);clearInterval(session.ticker);session.stream.getTracks().forEach(t=>t.stop());recording=null;$('record').disabled=false;$('record').classList.remove('recording');$('record').innerHTML='<i></i><span>15秒録画</span>';$('pause').disabled=false;if(session.cancelled||!chunks.length)return;const blob=new Blob(chunks,{type:mimeType});if(videoURL)URL.revokeObjectURL(videoURL);videoURL=URL.createObjectURL(blob);$('record-preview').src=videoURL;$('video-download').href=videoURL;$('video-download').download='naru-sunaba-'+today+(mimeType.includes('mp4')?'.mp4':'.webm');$('video-download').textContent='動画を保存 · '+(blob.size/1024/1024).toFixed(1)+' MB';openDialog('video-dialog');};recorder.start(250);$('record').classList.add('recording');$('record').disabled=true;$('pause').disabled=true;recording.timer=setTimeout(()=>stopRecording(false),15000);recording.ticker=setInterval(()=>{if(recording)$('record').innerHTML='<i></i><span>録画中 '+Math.max(0,15-Math.floor((performance.now()-recording.start)/1000))+'秒</span>';},200);$('record').innerHTML='<i></i><span>録画中 15秒</span>';if($('settings-dialog').open)$('settings-dialog').close();toast('15秒の録画を開始。砂場を奏でてください。');}catch{stream?.getTracks().forEach(t=>t.stop());recording=null;toast('録画を開始できませんでした。');}}
+function stopRecording(cancelled){if(!recording)return;recording.cancelled=cancelled;clearTimeout(recording.timer);clearInterval(recording.ticker);if(recording.recorder.state!=='inactive')recording.recorder.stop();if(cancelled)toast('画面が隠れたため録画を中止しました。もう一度15秒録画できます。');}
+$('record').addEventListener('click',startRecording);
+$('video-dialog').addEventListener('close',()=>$('record-preview').pause());
+async function init(){const field=document.querySelector('.playfield'),w=window.innerWidth<=760?112:232,h=Math.max(80,Math.min(220,Math.floor(field.clientHeight/(field.clientWidth/w))));sim=new SandSim(w,h,onEvent);let restored=false;if(location.hash){try{await decodeWorld(location.hash);restored=true;toast('共有された砂場を読み込みました。');}catch(e){toast(e.message);}}if(!restored){sim.seedDemo();demoUntil=performance.now()+4500;}selectMaterial(1);updateDaily();updateDiscovery();changeMusic();resize();raf=requestAnimationFrame(frame);}
+window.__sandTest={get sim(){return sim;},get audio(){return audio;},get events(){return eventLog;},get diagnostics(){return {particles:sim?.stats.particles,w:sim?.w,h:sim?.h,cell,paused,selected,tool,fps,audio:audio.stats,discovered:[...discoveries],reactionTotal:REACTIONS.length,recording:!!recording,today,challenge:challenge.id,daily:{...daily},started};},encodeWorld,decodeWorld,setPaused,lzwEncode,lzwDecode,getSnapshot:()=>({world:sim.snapshot(),bpm:+$('bpm').value,scale:$('scale').value}),clear:resetWorld};
+init().catch(e=>{toast('砂場を開始できませんでした。ページを再読み込みしてください。');console.error(e);});
+})();
+
+</script>
+</body></html>
